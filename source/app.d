@@ -24,7 +24,10 @@ void main()
     DerelictCUDARuntime.load();
 
     auto devs = Platform.getDevices(theAllocator);
-    auto dev   = devs[0]; 
+    auto dev   = devs[0];
+
+    int devtexpitchalignment = dev.texturePitchAlignment;
+
     auto ctx   = Context(dev); scope(exit) ctx.detach();
     Program.globalProgram = Program.fromFile("kernels_cuda300_64.ptx");
     auto q = Queue(false);
@@ -45,11 +48,11 @@ void main()
 
     b_res =  Buffer!(int)(imres.ptr[0..height*width]); scope(exit) b_res.release();
     
-    TexHandle l_handle = cudaAllocAndGetTextureObject(cast(void*)leftint.ptr, width, height); 
+    TexHandle l_handle = cudaAllocAndGetTextureObject(cast(void*)leftint.ptr, width, height, devtexpitchalignment); 
     ulong l_img = l_handle.texid;
     scope(exit) cudaFree(l_handle.devmemptr);
 
-    TexHandle r_handle = cudaAllocAndGetTextureObject(cast(void*)rightint.ptr, width, height); 
+    TexHandle r_handle = cudaAllocAndGetTextureObject(cast(void*)rightint.ptr, width, height, devtexpitchalignment); 
     ulong r_img = r_handle.texid;
     scope(exit) cudaFree(r_handle.devmemptr);
 
@@ -63,9 +66,9 @@ void main()
     q.enqueue!(stereoDisparityKernel)
                 (numBlocks, threadsPerBlock)
                 (l_img, r_img, b_res, width, height, -16, 0);
-    /*
+    
     ctx.sync();
-
+    /*
     q.enqueue!(stereoDisparityKernel)
                 (numBlocks, threadsPerBlock)
                 (l_img, r_img, b_res, width, height, -16, 0);

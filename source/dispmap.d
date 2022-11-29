@@ -24,12 +24,17 @@ pragma(LDC_intrinsic, "llvm.nvvm.tex.unified.2d.v4u32.s32") //uint
 int4 tex2D(ulong, uint /*x*/, uint /*y*/);
 
 uint toInt(int4 a){
-    uint r;
-
-    ubyte[4] ub = [cast(ubyte)a.x, cast(ubyte)a.y, cast(ubyte)a.z, cast(ubyte)a.w];
-    
-    r = *cast(uint*)ub.ptr;
+    ubyte* ip = cast(ubyte*)&a.x;
+    ubyte[4] ub = [ip[0], ip[1], ip[2], ip[3]];
+    uint r = *cast(uint*)ub.ptr;
     return r;
+}
+
+pragma(LDC_intrinsic, "llvm.nvvm.fabs.d")
+double fabs(double);
+
+T abs(T)(T val){
+    return cast(T)fabs(cast(double)val);
 }
 
 pragma(LDC_inline_ir)
@@ -44,17 +49,17 @@ pragma(LDC_inline_ir)
 @kernel void stereoDisparityKernel(ulong img0, ulong img1, GlobalPointer!(int) odata,
                       size_t w, size_t h, int minDisparity, int maxDisparity)
 {
-    membar_cta();
+    // membar_cta();
 
     enum RAD = 8;
     enum STEPS = 3;
     enum blockSize_x = 32;
     enum blockSize_y = 8;
 
-    const uint tidx = cast(uint)GlobalIndex.x; //ntid_x() * ctaid_x() + tid_x();
-    const uint tidy = cast(uint)GlobalIndex.y; //ntid_y() * ctaid_y() + tid_y();
-    const uint sidx = tid_x() + RAD;
-    const uint sidy = tid_y() + RAD;
+    const tidx = cast(uint)GlobalIndex.x; //ntid_x() * ctaid_x() + tid_x();
+    const tidy = cast(uint)GlobalIndex.y; //ntid_y() * ctaid_y() + tid_y();
+    const sidx = cast(uint)SharedIndex.x + RAD;
+    const sidy = cast(uint)SharedIndex.y + RAD;
 
     uint imLeft;
     uint imRight;
@@ -125,8 +130,9 @@ pragma(LDC_inline_ir)
 
             for (int k=0; k<4; k++)
             {
-                auto val = cast(int)(A[k] - B[k]);
-                absdiff +=  (val > 0)? val : - val;
+                //auto val = cast(int)(A[k] - B[k]);
+                //absdiff +=  (val > 0)? val : - val;
+                absdiff += cast(int)abs(A[k] - B[k]);
             }
             
             cost = absdiff;
@@ -143,7 +149,7 @@ pragma(LDC_inline_ir)
         for (int i = 0; i < STEPS; i++) {
             int offset = -RAD + i * RAD;
 
-            if (tid_x() < 2 * RAD) {
+            if (SharedIndex.x < 2 * RAD) {
                 // imLeft = tex2D( tex2Dleft, tidx-RAD+blockSize_x, tidy+offset );
                 imLeft = imLeftB[i];
                 imRight = tex2D(img1, tidx - RAD + blockSize_x + d,
@@ -155,8 +161,9 @@ pragma(LDC_inline_ir)
 
                 for (int k=0; k<4; k++)
                 {
-                    auto val = cast(int)(A[k] - B[k]);
-                    absdiff +=  (val > 0)? val : - val;
+                    //auto val = cast(int)(A[k] - B[k]);
+                    //absdiff +=  (val > 0)? val : - val;
+                    absdiff += cast(int)abs(A[k] - B[k]);
                 }
                 cost = absdiff;
                 
