@@ -43,16 +43,16 @@ void main()
     
     Buffer!(int) b_res;
 
-    uint[] leftint = cast(uint[])imrgbleft.ptr[0..height*width*4];
-    uint[] rightint = cast(uint[])imrgbright.ptr[0..height*width*4];
+    //uint[] leftint = cast(uint[])imrgbleft.ptr[0..height*width*4];
+    //uint[] rightint = cast(uint[])imrgbright.ptr[0..height*width*4];
 
     b_res =  Buffer!(int)(imres.ptr[0..height*width]); scope(exit) b_res.release();
     
-    TexHandle l_handle = cudaAllocAndGetTextureObject(cast(void*)leftint.ptr, width, height, devtexpitchalignment); 
+    TexHandle l_handle = cudaAllocAndGetTextureObject(cast(void*)imrgbleft.ptr, width, height, devtexpitchalignment); 
     ulong l_img = l_handle.texid;
     scope(exit) cudaFree(l_handle.devmemptr);
 
-    TexHandle r_handle = cudaAllocAndGetTextureObject(cast(void*)rightint.ptr, width, height, devtexpitchalignment); 
+    TexHandle r_handle = cudaAllocAndGetTextureObject(cast(void*)imrgbright.ptr, width, height, devtexpitchalignment); 
     ulong r_img = r_handle.texid;
     scope(exit) cudaFree(r_handle.devmemptr);
 
@@ -65,7 +65,7 @@ void main()
                             ];
     q.enqueue!(stereoDisparityKernel)
                 (numBlocks, threadsPerBlock)
-                (l_img, r_img, b_res, width, height, -16, 0);
+                (l_img, r_img, b_res, width, height, l_handle.pitch, -16, 0);
     
     ctx.sync();
     /*

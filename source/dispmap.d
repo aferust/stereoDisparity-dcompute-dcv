@@ -8,6 +8,7 @@ import dcompute.std.cuda.sync;
 import dcompute.std.cuda.index;
 
 import dcompute.std.memory;
+// https://github.com/NVIDIA/cuda-samples/blob/2e41896e1b2c7e2699b7b7f6689c107900c233bb/Samples/5_Domain_Specific/stereoDisparity/stereoDisparity.cu
 
 // to debug ptx
 // validate ptx "c:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\ptxas.exe" file
@@ -21,13 +22,22 @@ struct int4
 
 // %int4 @llvm.nvvm.tex.unified.2d.v4s32.s32(i64 %tex, i32 %x, i32 %y) // int
 pragma(LDC_intrinsic, "llvm.nvvm.tex.unified.2d.v4u32.s32") //uint
-int4 tex2D(ulong, uint /*x*/, uint /*y*/);
+int4 tex2D(ulong, int /*x*/, int /*y*/);
 
-uint toInt(int4 a){
-    ubyte* ip = cast(ubyte*)&a.x;
-    ubyte[4] ub = [ip[0], ip[1], ip[2], ip[3]];
-    uint r = *cast(uint*)ub.ptr;
-    return r;
+uint tex2DD(ulong adr, int x, int y){
+    uint val = __irEx!(`
+        declare {i32, i32, i32, i32} @llvm.nvvm.tex.unified.2d.v4u32.s32(i64, i32, i32)
+            `, `
+        %val = tail call { i32, i32, i32, i32 } @llvm.nvvm.tex.unified.2d.v4u32.s32(i64 %0, i32 %1, i32 %2)
+        %ret = extractvalue { i32, i32, i32, i32 } %val, 0
+        ret i32 %ret
+            `, ``, uint, ulong, int, int)(adr, x, y);
+    
+    return val;
+}
+
+uint toInt(int4 i4val){
+    return i4val.x;
 }
 
 pragma(LDC_intrinsic, "llvm.nvvm.fabs.d")
@@ -47,10 +57,10 @@ pragma(LDC_inline_ir)
 
 
 @kernel void stereoDisparityKernel(ulong img0, ulong img1, GlobalPointer!(int) odata,
-                      size_t w, size_t h, int minDisparity, int maxDisparity)
+                      size_t w, size_t h, size_t pitch, int minDisparity, int maxDisparity)
 {
     // membar_cta();
-
+    
     enum RAD = 8;
     enum STEPS = 3;
     enum blockSize_x = 32;
@@ -71,7 +81,6 @@ pragma(LDC_inline_ir)
     enum cols = blockSize_x + 2 * RAD;
     
     SharedArr diff = sharedStaticReserve!(uint[rows*cols], "diff0");
-    
     // store needed values for left image into registers (constant indexed local
     // vars)
     // uint[3] imLeftA;
@@ -107,8 +116,8 @@ pragma(LDC_inline_ir)
 
     for (int i = 0; i < STEPS; i++) {
         int offset = -RAD + i * RAD;
-        imLeftA[i] = tex2D(img0, tidx - RAD, tidy + offset).toInt;
-        imLeftB[i] = tex2D(img0, tidx - RAD + blockSize_x, tidy + offset).toInt;
+        imLeftA[i] = tex2DD(img0, tidx - RAD, tidy + offset);
+        imLeftB[i] = tex2DD(img0, tidx - RAD + blockSize_x, tidy + offset);
     }
 
     int dummy = 0;
@@ -119,7 +128,7 @@ pragma(LDC_inline_ir)
         for (int i = 0; i < STEPS; i++) {
             int offset = -RAD + i * RAD;
             imLeft = imLeftA[i];
-            imRight = tex2D(img1, tidx - RAD + d, tidy + offset).toInt;
+            imRight = tex2DD(img1, tidx - RAD + d, tidy + offset);
 
             
             uint absdiff;
@@ -152,8 +161,8 @@ pragma(LDC_inline_ir)
             if (SharedIndex.x < 2 * RAD) {
                 // imLeft = tex2D( tex2Dleft, tidx-RAD+blockSize_x, tidy+offset );
                 imLeft = imLeftB[i];
-                imRight = tex2D(img1, tidx - RAD + blockSize_x + d,
-                                            tidy + offset/+, w+/).toInt;
+                imRight = tex2DD(img1, tidx - RAD + blockSize_x + d,
+                                            tidy + offset/+, w+/);
                 uint absdiff;
                 ubyte* A = cast(ubyte*)(&imLeft);
 
