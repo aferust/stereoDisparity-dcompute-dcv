@@ -48,35 +48,36 @@ void main()
 
     b_res =  Buffer!(int)(imres.ptr[0..height*width]); scope(exit) b_res.release();
     
-    TexHandle l_handle = cudaAllocAndGetTextureObject(cast(void*)imrgbleft.ptr, width, height, devtexpitchalignment); 
+    TexHandle l_handle = cudaAllocAndGetTextureObject(cast(void*)imrgbleft.ptr, width, height); 
     ulong l_img = l_handle.texid;
     scope(exit) cudaFree(l_handle.devmemptr);
 
-    TexHandle r_handle = cudaAllocAndGetTextureObject(cast(void*)imrgbright.ptr, width, height, devtexpitchalignment); 
+    TexHandle r_handle = cudaAllocAndGetTextureObject(cast(void*)imrgbright.ptr, width, height); 
     ulong r_img = r_handle.texid;
     scope(exit) cudaFree(r_handle.devmemptr);
 
     enum blockSize_x = 32;
     enum blockSize_y = 8;
     
-    uint[3] threadsPerBlock = [blockSize_x, blockSize_y, 1];
+    
+    uint[3] numThreads = [blockSize_x, blockSize_y, 1];
     uint[3] numBlocks       = [
-                                cast(uint)iDivUp(width, blockSize_x), cast(uint)iDivUp(height, blockSize_y), 1
+                                cast(uint)iDivUp(width, numThreads[0]), cast(uint)iDivUp(height, numThreads[1]), 1
                             ];
     q.enqueue!(stereoDisparityKernel)
-                (numBlocks, threadsPerBlock)
-                (l_img, r_img, b_res, width, height, l_handle.pitch, -16, 0);
+                (numBlocks, numThreads)
+                (l_img, r_img, b_res, width, height, -16, 0);
     
     ctx.sync();
     /*
     q.enqueue!(stereoDisparityKernel)
-                (numBlocks, threadsPerBlock)
+                (numBlocks, numThreads)
                 (l_img, r_img, b_res, width, height, -16, 0);
     */
     b_res.copy!(Copy.deviceToHost);
 
     imres[] *= 20;
-    imshow(imres, "imres");
+    imshow(imres/*.as!ubyte.slice*/, "imres");
     //imwrite(imres.as!ubyte.slice.asImage(ImageFormat.IF_MONO), "out1.png");
     waitKey();
 }
