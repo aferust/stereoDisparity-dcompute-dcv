@@ -1,19 +1,18 @@
 {
 	"authors": [
-		"user"
+		"Ferhat Kurtulmuş"
 	],
-	"copyright": "Copyright © 2022, user",
+	"copyright": "Copyright © 2022, Ferhat Kurtulmuş",
 	"dependencies": {
-		"dcompute": {"path": "C:/Users/user/AppData/Local/dub/packages/dcompute"},
+		"dcompute": {"repository": "git+https://github.com/aferust/dcompute.git", "version": "~master"},
         "mir-algorithm": ">=3.15.3",
-        "dcv:core": {"path": "C:/Users/user/AppData/Local/dub/packages/dcv/"},
-        "dcv:imageio": {"path": "D:/projects/d_projects/dub/packages/dcv/"},
-        "dcv:plot": {"path": "C:/Users/user/AppData/Local/dub/packages/dcv/"},
+        "dcv:core": {"repository": "git+https://github.com/libmir/dcv.git", "version": "~master"},
+        "dcv:imageio": {"repository": "git+https://github.com/libmir/dcv.git", "version": "~master"},
+        "dcv:plot": {"repository": "git+https://github.com/libmir/dcv.git", "version": "~master"},
         "derelict-cuda": "*"
 	},
-	"description": "A minimal D application.",
-	"license": "proprietary",
-	"name": "dcompdene",
-    "comment-dflags": ["-output-ll"],
-    "commdflags": ["-vv"]
+	"description": "stereoDisparity - Stereo Disparity Computation with dlang, dcompute (CUDA backend)",
+	"license": "BSL-1.0",
+	"name": "stereo",
+    "comment-dflags": ["-output-ll"]
 }
