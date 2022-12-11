@@ -29,7 +29,7 @@ TexHandle cudaAllocAndGetTextureObject(void* imdata, size_t width, size_t height
     resDesc.res.pitch2D.pitchInBytes = pitch;
     resDesc.res.pitch2D.width = width;
     resDesc.res.pitch2D.height = height;
-    resDesc.res.pitch2D.desc = cudaCreateChannelDesc(8, 8, 8, 8, cudaChannelFormatKindUnsigned);
+    resDesc.res.pitch2D.desc = cudaCreateChannelDesc(32, 0, 0, 0, cudaChannelFormatKindUnsigned);
     //resDesc.res.pitch2D.pitchInBytes = width*4;
 
     cudaTextureDesc texDesc;

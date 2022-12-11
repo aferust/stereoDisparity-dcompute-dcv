@@ -5,13 +5,12 @@ pragma(LDC_no_moduleinfo);
 import ldc.dcompute;
 import dcompute.std.index;
 import dcompute.std.cuda.sync;
-import dcompute.std.cuda.index;
 
 import dcompute.std.memory;
 // https://github.com/NVIDIA/cuda-samples/blob/2e41896e1b2c7e2699b7b7f6689c107900c233bb/Samples/5_Domain_Specific/stereoDisparity/stereoDisparity.cu
 
-// to debug ptx
-// validate ptx "c:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\ptxas.exe" file
+// to debug or validate ptx
+// > ptxas file
 
 uint __usad4(uint A, uint B, uint C = 0) {
   uint result = __irEx!(`
@@ -31,34 +30,21 @@ struct int4
 }
 
 pragma(LDC_intrinsic, "llvm.nvvm.tex.unified.2d.v4u32.s32") //uint
-int4 tex2D(ulong, int /*x*/, int /*y*/) @trusted nothrow @nogc;
+int4 _tex2D(ulong, int /*x*/, int /*y*/) @trusted nothrow @nogc;
 
-uint toInt(int4 i4val){
-    uint ret;
-    ubyte[4] ub = [cast(ubyte)i4val.x, cast(ubyte)i4val.y, cast(ubyte)i4val.z, cast(ubyte)i4val.w];
-    
-    ret = ub.ptr.packBytes;
-    return ret;
-    //return i4val.x;
+uint tex2D(ulong tex, int x, int y){
+    return _tex2D(tex, x, y).x;
 }
 
 T abs(T)(T val) @trusted nothrow @nogc {
     return (val >= 0) ? val : -val;
 }
 
-pragma(LDC_inline_ir)
-    R inlineIR(string s, R, P...)(P) @trusted nothrow @nogc;
-
-
-// https://forum.dlang.org/post/kqzbrynsaslyleacspqt@forum.dlang.org
-pragma(LDC_inline_ir)
-    R __irEx(string prefix, string code, string suffix, R, P...)(P) @trusted nothrow @nogc;
-
 
 @kernel void stereoDisparityKernel(ulong img0, ulong img1, GlobalPointer!(int) odata,
                       size_t w, size_t h, int minDisparity, int maxDisparity)
 {
-    enum RAD = 1;
+    enum RAD = 8;
     enum STEPS = 3;
     enum blockSize_x = 32;
     enum blockSize_y = 8;
@@ -82,23 +68,14 @@ pragma(LDC_inline_ir)
 
     // store needed values for left image into registers (constant indexed local
     // vars)
-    // uint[3] imLeftA, imLeftB;
-    uint* imLeftA = inlineIR!(`
-        %im = alloca [3 x i32], align 4
-        %ptr = getelementptr inbounds [3 x i32], [3 x i32]* %im, i64 0, i64 0
-        ret i32* %ptr
-    `, uint*)();
-    
-    uint* imLeftB = inlineIR!(`
-        %im = alloca [3 x i32], align 4
-        %ptr = getelementptr inbounds [3 x i32], [3 x i32]* %im, i64 0, i64 0
-        ret i32* %ptr
-    `, uint*)();
+    uint[3] _imLeftA, _imLeftB;
+    uint* imLeftA = _imLeftA.ptr; // bypass d's bounds chek which requires extra linkage.
+    uint* imLeftB = _imLeftB.ptr;
 
     foreach (i; 0..STEPS) {
         int offset = -RAD + i * RAD;
-        imLeftA[i] = tex2D(img0, tidx - RAD, tidy + offset).toInt;
-        imLeftB[i] = tex2D(img0, tidx - RAD + blockSize_x, tidy + offset).toInt;
+        imLeftA[i] = tex2D(img0, tidx - RAD, tidy + offset);
+        imLeftB[i] = tex2D(img0, tidx - RAD + blockSize_x, tidy + offset);
     }
 
     // for a fixed camera system this could be hardcoded and loop unrolled
@@ -109,7 +86,7 @@ pragma(LDC_inline_ir)
         foreach (immutable i; 0..STEPS) {
             int offset = -RAD + i * RAD;
             imLeft = imLeftA[i];
-            imRight = tex2D(img1, tidx - RAD + d, tidy + offset).toInt;
+            imRight = tex2D(img1, tidx - RAD + d, tidy + offset);
             diff[(sidy + offset)*cols + (sidx - RAD)] = __usad4(imLeft, imRight);
         }
     
@@ -123,7 +100,7 @@ pragma(LDC_inline_ir)
                 // imLeft = tex2D( tex2Dleft, tidx-RAD+blockSize_x, tidy+offset );
                 imLeft = imLeftB[i];
                 imRight = tex2D(img1, tidx - RAD + blockSize_x + d,
-                                            tidy + offset).toInt;
+                                            tidy + offset);
 
                 diff[(sidy + offset )*cols + (sidx - RAD + blockSize_x)] = __usad4(imLeft, imRight);
             }
@@ -159,7 +136,7 @@ pragma(LDC_inline_ir)
         // see if it is better or not
         if (cost < bestCost) {
             bestCost = cost;
-            bestDisparity = d + 8;
+            bestDisparity = d + RAD;
         }
 
         barrier0();
@@ -167,10 +144,11 @@ pragma(LDC_inline_ir)
 
     if (tidy < h && tidx < w) {
         odata[tidy * w + tidx] = bestDisparity;
-        // odata[tidy * w + tidx] = tex2D(img0, tidx, tidy).x; // debug tex2D
+        // odata[tidy * w + tidx] = tex2D(img0, tidx, tidy); // debug tex2D
     }
 }
 
+/+
 void printInt(uint val){
     __irEx!(`
         @str = private addrspace(4) constant [4 x i8] c"%d\0A\00"
@@ -194,35 +172,9 @@ void printInt(uint val){
             `, ``, void, uint)(val);
 }
 
-int4* reserveInt4(){
-    void* address = __irEx!(`
-        %Dummy = type { i32, i32, i32, i32 }    
-            `, `
-        %a = alloca [3 x %Dummy], align 4
-        %b = alloca %Dummy*, align 8
-        %1 = bitcast [3 x %Dummy]* %a to %Dummy*
-        %2 = bitcast %Dummy* %1 to i8*
-        %3 = bitcast %Dummy* %1 to i8*
-        %4 = bitcast [3 x %Dummy]* %a to %Dummy*
-        %5 = insertvalue { i64, %Dummy* } { i64 3, %Dummy* undef }, %Dummy* %4, 1 
-        %6 = bitcast [3 x %Dummy]* %a to %Dummy*
-        store %Dummy* %6, %Dummy** %b, align 8
-        %7 = load %Dummy*, %Dummy** %b, align 8
-        %8 = load %Dummy*, %Dummy** %b, align 8
-        %vptr = bitcast %Dummy* %8 to i8*
-        ret i8* %vptr
-            `, ``, void*)();
-    return cast(int4*)address;
-}
-
-uint packBytes(const ubyte *inBytes){
-    uint packed = inBytes[0] | (inBytes[1] << 8) | 
-                    (inBytes[2] << 16) | (inBytes[3] << 24);
-    return packed;
-}
-
 extern (C) { // nvptx supports these
     int vprintf(const char*, const char*);
     void* malloc(size_t);
     void free(void*);
 }
++/

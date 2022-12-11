@@ -23,9 +23,7 @@ void main()
     DerelictCUDARuntime.load();
 
     auto devs = Platform.getDevices(theAllocator);
-    auto dev   = devs[0];
-
-    int devtexpitchalignment = dev.texturePitchAlignment;
+    auto dev  = devs[0];
 
     auto ctx   = Context(dev); scope(exit) ctx.detach();
     Program.globalProgram = Program.fromFile("kernels_cuda300_64.ptx");
@@ -62,7 +60,7 @@ void main()
 
     q.enqueue!(stereoDisparityKernel)
                 (numBlocks, numThreads)
-                (l_img, r_img, b_res, width, height, 0, 64);
+                (l_img, r_img, b_res, width, height, -16, 0);
     
     ctx.sync();
     
@@ -70,7 +68,7 @@ void main()
 
     imres[] *= 20;
     
-    imres[] = medianFilter(imres, 5);
+    //imres[] = medianFilter(imres, 5);
     
     imshow(imres, "imres");
     imwrite(imres.as!ubyte.slice.asImage(ImageFormat.IF_MONO), "dismap.png");
