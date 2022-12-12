@@ -8,6 +8,8 @@ import dcompute.std.cuda.sync;
 
 import dcompute.std.memory;
 
+// https://github.com/NVIDIA/cuda-samples/blob/master/Samples/5_Domain_Specific/bilateralFilter/bilateral_kernel.cu
+
 // CUDA tex2D return type
 struct float4
 {
