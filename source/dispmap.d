@@ -69,7 +69,7 @@ T abs(T)(T val) @trusted nothrow @nogc {
     // store needed values for left image into registers (constant indexed local
     // vars)
     uint[3] _imLeftA, _imLeftB;
-    uint* imLeftA = _imLeftA.ptr; // bypass d's bounds chek which requires extra linkage.
+    uint* imLeftA = _imLeftA.ptr; // skip d's bounds check which requires extra linkage.
     uint* imLeftB = _imLeftB.ptr;
 
     foreach (i; 0..STEPS) {
@@ -148,7 +148,7 @@ T abs(T)(T val) @trusted nothrow @nogc {
     }
 }
 
-/+
+
 void printInt(uint val){
     __irEx!(`
         @str = private addrspace(4) constant [4 x i8] c"%d\0A\00"
@@ -171,7 +171,29 @@ void printInt(uint val){
         ret void
             `, ``, void, uint)(val);
 }
+void printFloat(float val){
+    __irEx!(`
+        @str = private addrspace(4) constant [4 x i8] c"%f\0A\00"
+        declare i8* @llvm.nvvm.ptr.constant.to.gen.p0i8.p4i8(i8 addrspace(4)*) nounwind readnone
+        declare i32 @vprintf(i8* nocapture, i8*) nounwind
+        declare float addrspace(5)* @llvm.nvvm.ptr.gen.to.local.p5float.p0float(float*) nounwind readnone    
+            `, `
+        %tmp = alloca [12 x float], align 8
+        %tmp2 = getelementptr inbounds [12 x float], [12 x float]* %tmp, i64 0, i64 0
+        %gen2local = call float addrspace(5)* @llvm.nvvm.ptr.gen.to.local.p5float.p0float(float* %tmp2)
+        
+        %getElem12 = getelementptr float, float addrspace(5)* %gen2local, i64 0
+        store float %0, float addrspace(5)* %getElem12, align 8
 
+        %fmt = call i8* @llvm.nvvm.ptr.constant.to.gen.p0i8.p4i8(i8 addrspace(4)* getelementptr inbounds ([4 x i8], [4 x i8] addrspace(4)* @str, i64 0, i64 0))
+
+        %val = bitcast [12 x float]* %tmp to i8*
+
+        %call = call i32 @vprintf(i8* %fmt, i8* %val)
+        ret void
+            `, ``, void, float)(val);
+}
+/+
 extern (C) { // nvptx supports these
     int vprintf(const char*, const char*);
     void* malloc(size_t);

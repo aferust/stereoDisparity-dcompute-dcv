@@ -10,7 +10,7 @@ import dcompute.driver.cuda : Platform, Context, Pointer, Program, Queue, Buffer
 import derelict.cuda;
 
 import dispmap;
-import cudatexture : cudaAllocAndGetTextureObject, TexHandle;
+import cudatexture : cudaAllocAndGetTextureObject, cudaAllocAndGetTextureObjectFloat4, TexHandle;
 
 T iDivUp(T)(T a, T b)
 {
@@ -67,13 +67,13 @@ void main()
     b_res.copy!(Copy.deviceToHost);
 
     imres[] *= 20;
-    
-    //imres[] = medianFilter(imres, 5);
-    
     imshow(imres, "imres");
+
     imwrite(imres.as!ubyte.slice.asImage(ImageFormat.IF_MONO), "dismap.png");
     waitKey();
 }
+
+
 
 Slice!(ubyte*, 3) make4Channel(Slice!(ubyte*, 3) imrgb) {
 
