@@ -41,6 +41,7 @@ T abs(T)(T val) @trusted nothrow @nogc {
     return (val >= 0) ? val : -val;
 }
 
+/*
 float __expf(float x){ // intrinsic?
     float x1;
     enum precision = 0.01f;
@@ -54,12 +55,20 @@ float __expf(float x){ // intrinsic?
 
     return sum;
 }
+*/
 
+pragma(LDC_intrinsic, "llvm.nvvm.ex2.approx.f")
+float __expf(float val);
+
+/*
 float saturatef(float val){ // intrinsic?
     if(val <= 0) return 0;
     if(val >= 1) return 1;
     return val;
 }
+*/
+pragma(LDC_intrinsic, "llvm.nvvm.saturate.f")
+float saturatef(float val);
 
 float euclideanLen(float4 a, float4 b, float d)
 {

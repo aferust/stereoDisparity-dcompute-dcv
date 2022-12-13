@@ -65,9 +65,30 @@ void main()
     ctx.sync();
     
     b_res.copy!(Copy.deviceToHost);
-
     imres[] *= 20;
     imshow(imres, "imres");
+
+    import bilateral;
+    enum radius = 3;
+    enum delta = 4.0f;
+    
+    TexHandle dismap_tex = cudaAllocAndGetTextureObjectFloat4(cast(void*)imres.ptr, width, height); 
+    ulong rgbaTex = dismap_tex.texid;
+    scope(exit) cudaFree(dismap_tex.devmemptr);
+    
+    uint[3] gridSize = [cast(uint)((width + 16 - 1) / 16), cast(uint)((height + 16 - 1) / 16), 1];
+    uint[3] blockSize = [16, 16, 1];
+
+    auto filtered = slice!int([height, width], 0);
+    auto b_fil =  Buffer!(int)(filtered.ptr[0..height*width]); scope(exit) b_fil.release();
+
+    q.enqueue!(bilateral_filter)
+                (gridSize, blockSize)
+                (rgbaTex, b_fil, width, height, delta, radius);
+
+    b_fil.copy!(Copy.deviceToHost);
+
+    imshow(filtered, "filtered");
 
     imwrite(imres.as!ubyte.slice.asImage(ImageFormat.IF_MONO), "dismap.png");
     waitKey();

@@ -960,95 +960,6 @@ LBB2_36:
 	ret;
 
 }
-	// .globl	_D9bilateral6__expfFfZf
-.visible .func  (.param .b32 func_retval0) _D9bilateral6__expfFfZf(
-	.param .b32 _D9bilateral6__expfFfZf_param_0
-)
-{
-	.local .align 4 .b8 	__local_depot18[16];
-	.reg .b64 	%SP;
-	.reg .b64 	%SPL;
-	.reg .pred 	%p<2>;
-	.reg .b32 	%r<7>;
-	.reg .f32 	%f<12>;
-
-	mov.u64 	%SPL, __local_depot18;
-	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f1, [_D9bilateral6__expfFfZf_param_0];
-	st.f32 	[%SP+0], %f1;
-	mov.u32 	%r1, 2143289344;
-	st.u32 	[%SP+4], %r1;
-	mov.u32 	%r2, 0;
-	st.u32 	[%SP+8], %r2;
-	st.u32 	[%SP+12], %r2;
-	mov.u32 	%r3, 1065353216;
-	st.u32 	[%SP+4], %r3;
-	bra.uni 	LBB18_1;
-LBB18_1:
-	ld.f32 	%f2, [%SP+4];
-	ld.f32 	%f3, [%SP+8];
-	add.rn.f32 	%f4, %f3, %f2;
-	st.f32 	[%SP+8], %f4;
-	ld.f32 	%f5, [%SP+0];
-	ld.u32 	%r4, [%SP+12];
-	add.s32 	%r5, %r4, 1;
-	st.u32 	[%SP+12], %r5;
-	ld.u32 	%r6, [%SP+12];
-	cvt.rn.f32.s32 	%f6, %r6;
-	div.rn.f32 	%f7, %f5, %f6;
-	ld.f32 	%f8, [%SP+4];
-	mul.rn.f32 	%f9, %f8, %f7;
-	st.f32 	[%SP+4], %f9;
-	bra.uni 	LBB18_2;
-LBB18_2:
-	ld.f32 	%f10, [%SP+4];
-	setp.gt.f32 	%p1, %f10, 0f3C23D70A;
-	@%p1 bra 	LBB18_1;
-	bra.uni 	LBB18_3;
-LBB18_3:
-	ld.f32 	%f11, [%SP+8];
-	st.param.f32 	[func_retval0+0], %f11;
-	ret;
-
-}
-	// .globl	_D9bilateral9saturatefFfZf
-.visible .func  (.param .b32 func_retval0) _D9bilateral9saturatefFfZf(
-	.param .b32 _D9bilateral9saturatefFfZf_param_0
-)
-{
-	.local .align 4 .b8 	__local_depot19[4];
-	.reg .b64 	%SP;
-	.reg .b64 	%SPL;
-	.reg .pred 	%p<3>;
-	.reg .f32 	%f<7>;
-
-	mov.u64 	%SPL, __local_depot19;
-	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f1, [_D9bilateral9saturatefFfZf_param_0];
-	st.f32 	[%SP+0], %f1;
-	ld.f32 	%f2, [%SP+0];
-	setp.gtu.f32 	%p1, %f2, 0f00000000;
-	@%p1 bra 	LBB19_2;
-	bra.uni 	LBB19_1;
-LBB19_1:
-	mov.f32 	%f6, 0f00000000;
-	st.param.f32 	[func_retval0+0], %f6;
-	ret;
-LBB19_2:
-	ld.f32 	%f3, [%SP+0];
-	setp.ltu.f32 	%p2, %f3, 0f3F800000;
-	@%p2 bra 	LBB19_4;
-	bra.uni 	LBB19_3;
-LBB19_3:
-	mov.f32 	%f5, 0f3F800000;
-	st.param.f32 	[func_retval0+0], %f5;
-	ret;
-LBB19_4:
-	ld.f32 	%f4, [%SP+0];
-	st.param.f32 	[func_retval0+0], %f4;
-	ret;
-
-}
 	// .globl	_D9bilateral12euclideanLenFSQBa6float4QlfZf
 .visible .func  (.param .b32 func_retval0) _D9bilateral12euclideanLenFSQBa6float4QlfZf(
 	.param .align 4 .b8 _D9bilateral12euclideanLenFSQBa6float4QlfZf_param_0[16],
@@ -1056,13 +967,13 @@ LBB19_4:
 	.param .b32 _D9bilateral12euclideanLenFSQBa6float4QlfZf_param_2
 )
 {
-	.local .align 8 .b8 	__local_depot20[40];
+	.local .align 8 .b8 	__local_depot18[40];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
-	.reg .f32 	%f<32>;
+	.reg .f32 	%f<31>;
 	.reg .b64 	%rd<5>;
 
-	mov.u64 	%SPL, __local_depot20;
+	mov.u64 	%SPL, __local_depot18;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f8, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1+12];
 	ld.param.f32 	%f7, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1+8];
@@ -1107,18 +1018,7 @@ LBB19_4:
 	add.rn.f32 	%f27, %f26, %f26;
 	mul.rn.f32 	%f28, %f27, %f26;
 	div.rn.f32 	%f29, %f25, %f28;
-	{ // callseq 14, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f29;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral6__expfFfZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f30, [retval0+0];
-	} // callseq 14
+	ex2.approx.f32 	%f30, %f29;
 	st.param.f32 	[func_retval0+0], %f30;
 	ret;
 
@@ -1128,14 +1028,14 @@ LBB19_4:
 	.param .align 4 .b8 _D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0[16]
 )
 {
-	.local .align 8 .b8 	__local_depot21[16];
+	.local .align 8 .b8 	__local_depot19[16];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .b32 	%r<11>;
-	.reg .f32 	%f<33>;
+	.reg .f32 	%f<29>;
 	.reg .b64 	%rd<3>;
 
-	mov.u64 	%SPL, __local_depot21;
+	mov.u64 	%SPL, __local_depot19;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f4, [_D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0+12];
 	ld.param.f32 	%f3, [_D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0+8];
@@ -1148,7 +1048,7 @@ LBB19_4:
 	st.f32 	[%SP+8], %f3;
 	st.f32 	[%SP+0], %f1;
 	ld.f32 	%f5, [%SP+0];
-	{ // callseq 15, 0
+	{ // callseq 14, 0
 	.reg .b32 temp_param_reg;
 	.param .b32 param0;
 	st.param.f32 	[param0+0], %f5;
@@ -1159,115 +1059,71 @@ LBB19_4:
 	param0
 	);
 	ld.param.f32 	%f6, [retval0+0];
+	} // callseq 14
+	cvt.sat.f32.f32 	%f8, %f6;
+	st.f32 	[%SP+0], %f8;
+	ld.f32 	%f9, [%rd2];
+	{ // callseq 15, 0
+	.reg .b32 temp_param_reg;
+	.param .b32 param0;
+	st.param.f32 	[param0+0], %f9;
+	.param .b32 retval0;
+	call.uni (retval0), 
+	_D9bilateral__T3absTfZQhFNaNbNiNefZf, 
+	(
+	param0
+	);
+	ld.param.f32 	%f10, [retval0+0];
 	} // callseq 15
+	cvt.sat.f32.f32 	%f12, %f10;
+	st.f32 	[%rd2], %f12;
+	ld.f32 	%f13, [%SP+8];
 	{ // callseq 16, 0
 	.reg .b32 temp_param_reg;
 	.param .b32 param0;
-	st.param.f32 	[param0+0], %f6;
+	st.param.f32 	[param0+0], %f13;
 	.param .b32 retval0;
 	call.uni (retval0), 
-	_D9bilateral9saturatefFfZf, 
+	_D9bilateral__T3absTfZQhFNaNbNiNefZf, 
 	(
 	param0
 	);
-	ld.param.f32 	%f8, [retval0+0];
+	ld.param.f32 	%f14, [retval0+0];
 	} // callseq 16
-	st.f32 	[%SP+0], %f8;
-	ld.f32 	%f10, [%rd2];
+	cvt.sat.f32.f32 	%f16, %f14;
+	st.f32 	[%SP+8], %f16;
+	ld.f32 	%f17, [%SP+12];
 	{ // callseq 17, 0
 	.reg .b32 temp_param_reg;
 	.param .b32 param0;
-	st.param.f32 	[param0+0], %f10;
+	st.param.f32 	[param0+0], %f17;
 	.param .b32 retval0;
 	call.uni (retval0), 
 	_D9bilateral__T3absTfZQhFNaNbNiNefZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f11, [retval0+0];
-	} // callseq 17
-	{ // callseq 18, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f11;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral9saturatefFfZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f13, [retval0+0];
-	} // callseq 18
-	st.f32 	[%rd2], %f13;
-	ld.f32 	%f15, [%SP+8];
-	{ // callseq 19, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f15;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral__T3absTfZQhFNaNbNiNefZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f16, [retval0+0];
-	} // callseq 19
-	{ // callseq 20, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f16;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral9saturatefFfZf, 
 	(
 	param0
 	);
 	ld.param.f32 	%f18, [retval0+0];
-	} // callseq 20
-	st.f32 	[%SP+8], %f18;
-	ld.f32 	%f20, [%SP+12];
-	{ // callseq 21, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f20;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral__T3absTfZQhFNaNbNiNefZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f21, [retval0+0];
-	} // callseq 21
-	{ // callseq 22, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f21;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral9saturatefFfZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f23, [retval0+0];
-	} // callseq 22
-	st.f32 	[%SP+12], %f23;
-	ld.f32 	%f25, [%SP+12];
-	mul.rn.f32 	%f26, %f25, 0f437F0000;
-	cvt.rzi.u32.f32 	%r1, %f26;
+	} // callseq 17
+	cvt.sat.f32.f32 	%f20, %f18;
+	st.f32 	[%SP+12], %f20;
+	ld.f32 	%f21, [%SP+12];
+	mul.rn.f32 	%f22, %f21, 0f437F0000;
+	cvt.rzi.u32.f32 	%r1, %f22;
 	shl.b32 	%r2, %r1, 24;
-	ld.f32 	%f27, [%SP+8];
-	mul.rn.f32 	%f28, %f27, 0f437F0000;
-	cvt.rzi.u32.f32 	%r3, %f28;
+	ld.f32 	%f23, [%SP+8];
+	mul.rn.f32 	%f24, %f23, 0f437F0000;
+	cvt.rzi.u32.f32 	%r3, %f24;
 	shl.b32 	%r4, %r3, 16;
 	or.b32  	%r5, %r2, %r4;
-	ld.f32 	%f29, [%rd2];
-	mul.rn.f32 	%f30, %f29, 0f437F0000;
-	cvt.rzi.u32.f32 	%r6, %f30;
+	ld.f32 	%f25, [%rd2];
+	mul.rn.f32 	%f26, %f25, 0f437F0000;
+	cvt.rzi.u32.f32 	%r6, %f26;
 	shl.b32 	%r7, %r6, 8;
 	or.b32  	%r8, %r5, %r7;
-	ld.f32 	%f31, [%SP+0];
-	mul.rn.f32 	%f32, %f31, 0f437F0000;
-	cvt.rzi.u32.f32 	%r9, %f32;
+	ld.f32 	%f27, [%SP+0];
+	mul.rn.f32 	%f28, %f27, 0f437F0000;
+	cvt.rzi.u32.f32 	%r9, %f28;
 	or.b32  	%r10, %r8, %r9;
 	st.param.b32 	[func_retval0+0], %r10;
 	ret;
@@ -1278,33 +1134,33 @@ LBB19_4:
 	.param .b32 _D9bilateral__T3absTfZQhFNaNbNiNefZf_param_0
 )
 {
-	.local .align 8 .b8 	__local_depot22[24];
+	.local .align 8 .b8 	__local_depot20[24];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .pred 	%p<2>;
 	.reg .f32 	%f<6>;
 	.reg .b64 	%rd<4>;
 
-	mov.u64 	%SPL, __local_depot22;
+	mov.u64 	%SPL, __local_depot20;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f1, [_D9bilateral__T3absTfZQhFNaNbNiNefZf_param_0];
 	st.f32 	[%SP+0], %f1;
 	ld.f32 	%f2, [%SP+0];
 	setp.ltu.f32 	%p1, %f2, 0f00000000;
-	@%p1 bra 	LBB22_2;
-	bra.uni 	LBB22_1;
-LBB22_1:
+	@%p1 bra 	LBB20_2;
+	bra.uni 	LBB20_1;
+LBB20_1:
 	add.u64 	%rd2, %SP, 0;
 	st.u64 	[%SP+8], %rd2;
-	bra.uni 	LBB22_3;
-LBB22_2:
+	bra.uni 	LBB20_3;
+LBB20_2:
 	ld.f32 	%f3, [%SP+0];
 	neg.f32 	%f4, %f3;
 	st.f32 	[%SP+16], %f4;
 	add.u64 	%rd1, %SP, 16;
 	st.u64 	[%SP+8], %rd1;
-	bra.uni 	LBB22_3;
-LBB22_3:
+	bra.uni 	LBB20_3;
+LBB20_3:
 	ld.u64 	%rd3, [%SP+8];
 	ld.f32 	%f5, [%rd3];
 	st.param.f32 	[func_retval0+0], %f5;
@@ -1317,7 +1173,7 @@ LBB22_3:
 	.param .b32 _D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_1
 )
 {
-	.local .align 4 .b8 	__local_depot23[4];
+	.local .align 4 .b8 	__local_depot21[4];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .b16 	%rs<17>;
@@ -1325,7 +1181,7 @@ LBB22_3:
 	.reg .f32 	%f<9>;
 	.reg .b64 	%rd<8>;
 
-	mov.u64 	%SPL, __local_depot23;
+	mov.u64 	%SPL, __local_depot21;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.u32 	%r1, [_D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_1];
 	ld.param.u64 	%rd1, [_D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_0];
@@ -1397,15 +1253,15 @@ LBB22_3:
 	.param .u32 _D9bilateral16bilateral_filterFmS3ldc8dcompute__T7PointerVEQBaQz9AddrSpacei1TiZQBemmfiZv_param_5
 )
 {
-	.local .align 8 .b8 	__local_depot24[472];
+	.local .align 8 .b8 	__local_depot22[472];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .pred 	%p<10>;
 	.reg .b32 	%r<42>;
-	.reg .f32 	%f<48>;
+	.reg .f32 	%f<47>;
 	.reg .b64 	%rd<67>;
 
-	mov.u64 	%SPL, __local_depot24;
+	mov.u64 	%SPL, __local_depot22;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.u32 	%r1, [_D9bilateral16bilateral_filterFmS3ldc8dcompute__T7PointerVEQBaQz9AddrSpacei1TiZQBemmfiZv_param_5];
 	ld.param.f32 	%f1, [_D9bilateral16bilateral_filterFmS3ldc8dcompute__T7PointerVEQBaQz9AddrSpacei1TiZQBemmfiZv_param_4];
@@ -1419,7 +1275,7 @@ LBB22_3:
 	st.u64 	[%SP+24], %rd5;
 	st.f32 	[%SP+32], %f1;
 	st.u32 	[%SP+36], %r1;
-	{ // callseq 23, 0
+	{ // callseq 18, 0
 	.reg .b32 temp_param_reg;
 	.param .b64 retval0;
 	call.uni (retval0), 
@@ -1427,9 +1283,9 @@ LBB22_3:
 	(
 	);
 	ld.param.b64 	%rd6, [retval0+0];
-	} // callseq 23
+	} // callseq 18
 	st.u32 	[%SP+40], %rd6;
-	{ // callseq 24, 0
+	{ // callseq 19, 0
 	.reg .b32 temp_param_reg;
 	.param .b64 retval0;
 	call.uni (retval0), 
@@ -1437,38 +1293,38 @@ LBB22_3:
 	(
 	);
 	ld.param.b64 	%rd8, [retval0+0];
-	} // callseq 24
+	} // callseq 19
 	st.u32 	[%SP+44], %rd8;
 	ld.s32 	%rd10, [%SP+40];
 	ld.u64 	%rd11, [%SP+16];
 	setp.ge.u64 	%p4, %rd10, %rd11;
 	mov.pred 	%p3, -1;
 	mov.pred 	%p9, %p3;
-	@%p4 bra 	LBB24_2;
-	bra.uni 	LBB24_1;
-LBB24_1:
+	@%p4 bra 	LBB22_2;
+	bra.uni 	LBB22_1;
+LBB22_1:
 	ld.s32 	%rd12, [%SP+44];
 	ld.u64 	%rd13, [%SP+24];
 	setp.ge.u64 	%p1, %rd12, %rd13;
 	mov.pred 	%p9, %p1;
-	bra.uni 	LBB24_2;
-LBB24_2:
+	bra.uni 	LBB22_2;
+LBB22_2:
 	mov.pred 	%p2, %p9;
-	@!%p2 bra 	LBB24_4;
-	bra.uni 	LBB24_3;
-LBB24_3:
+	@!%p2 bra 	LBB22_4;
+	bra.uni 	LBB22_3;
+LBB22_3:
 	ret;
-LBB24_4:
+LBB22_4:
 	add.u64 	%rd1, %SP, 48;
 	mov.u64 	%rd14, 0;
 	st.u64 	[%SP+304], %rd14;
-	bra.uni 	LBB24_5;
-LBB24_5:
+	bra.uni 	LBB22_5;
+LBB22_5:
 	ld.u64 	%rd15, [%SP+304];
 	setp.eq.s64 	%p5, %rd15, 64;
-	@%p5 bra 	LBB24_7;
-	bra.uni 	LBB24_6;
-LBB24_6:
+	@%p5 bra 	LBB22_7;
+	bra.uni 	LBB22_6;
+LBB22_6:
 	ld.u64 	%rd63, [%SP+304];
 	shl.b64 	%rd64, %rd63, 2;
 	add.s64 	%rd65, %rd1, %rd64;
@@ -1476,22 +1332,22 @@ LBB24_6:
 	st.u32 	[%rd65], %r41;
 	add.s64 	%rd66, %rd63, 1;
 	st.u64 	[%SP+304], %rd66;
-	bra.uni 	LBB24_5;
-LBB24_7:
+	bra.uni 	LBB22_5;
+LBB22_7:
 	add.u64 	%rd16, %SP, 48;
 	st.u64 	[%SP+312], %rd16;
 	mov.u32 	%r2, 0;
 	st.u32 	[%SP+320], %r2;
-	bra.uni 	LBB24_8;
-LBB24_8:
+	bra.uni 	LBB22_8;
+LBB22_8:
 	ld.u32 	%r3, [%SP+36];
 	shl.b32 	%r4, %r3, 1;
 	or.b32  	%r5, %r4, 1;
 	ld.u32 	%r6, [%SP+320];
 	setp.ge.s32 	%p6, %r6, %r5;
-	@%p6 bra 	LBB24_11;
-	bra.uni 	LBB24_9;
-LBB24_9:
+	@%p6 bra 	LBB22_11;
+	bra.uni 	LBB22_9;
+LBB22_9:
 	ld.u32 	%r36, [%SP+320];
 	ld.u32 	%r37, [%SP+36];
 	sub.s32 	%r38, %r36, %r37;
@@ -1508,26 +1364,15 @@ LBB24_9:
 	add.rn.f32 	%f43, %f42, %f42;
 	mul.rn.f32 	%f44, %f43, %f42;
 	div.rn.f32 	%f45, %f41, %f44;
-	{ // callseq 30, 0
-	.reg .b32 temp_param_reg;
-	.param .b32 param0;
-	st.param.f32 	[param0+0], %f45;
-	.param .b32 retval0;
-	call.uni (retval0), 
-	_D9bilateral6__expfFfZf, 
-	(
-	param0
-	);
-	ld.param.f32 	%f46, [retval0+0];
-	} // callseq 30
+	ex2.approx.f32 	%f46, %f45;
 	st.f32 	[%rd62], %f46;
-	bra.uni 	LBB24_10;
-LBB24_10:
+	bra.uni 	LBB22_10;
+LBB22_10:
 	ld.u32 	%r39, [%SP+320];
 	add.s32 	%r40, %r39, 1;
 	st.u32 	[%SP+320], %r40;
-	bra.uni 	LBB24_8;
-LBB24_11:
+	bra.uni 	LBB22_8;
+LBB22_11:
 	mov.u32 	%r7, 0;
 	st.u32 	[%SP+328], %r7;
 	mov.u32 	%r8, 2143289344;
@@ -1558,25 +1403,25 @@ LBB24_11:
 	ld.u32 	%r11, [%SP+36];
 	neg.s32 	%r12, %r11;
 	st.u32 	[%SP+384], %r12;
-	bra.uni 	LBB24_12;
-LBB24_12:
+	bra.uni 	LBB22_12;
+LBB22_12:
 	ld.u32 	%r13, [%SP+384];
 	ld.u32 	%r14, [%SP+36];
 	setp.gt.s32 	%p7, %r13, %r14;
-	@%p7 bra 	LBB24_19;
-	bra.uni 	LBB24_13;
-LBB24_13:
+	@%p7 bra 	LBB22_19;
+	bra.uni 	LBB22_13;
+LBB22_13:
 	ld.u32 	%r17, [%SP+36];
 	neg.s32 	%r18, %r17;
 	st.u32 	[%SP+388], %r18;
-	bra.uni 	LBB24_14;
-LBB24_14:
+	bra.uni 	LBB22_14;
+LBB22_14:
 	ld.u32 	%r19, [%SP+388];
 	ld.u32 	%r20, [%SP+36];
 	setp.gt.s32 	%p8, %r19, %r20;
-	@%p8 bra 	LBB24_17;
-	bra.uni 	LBB24_15;
-LBB24_15:
+	@%p8 bra 	LBB22_17;
+	bra.uni 	LBB22_15;
+LBB22_15:
 	ld.u64 	%rd36, [%SP+0];
 	ld.u32 	%r23, [%SP+40];
 	ld.u32 	%r24, [%SP+388];
@@ -1626,7 +1471,7 @@ LBB24_15:
 	ld.f32 	%f24, [%SP+360];
 	ld.f32 	%f25, [%SP+352];
 	ld.f32 	%f26, [%SP+32];
-	{ // callseq 27, 0
+	{ // callseq 22, 0
 	.reg .b32 temp_param_reg;
 	.param .align 4 .b8 param0[16];
 	st.param.f32 	[param0+0], %f21;
@@ -1649,12 +1494,12 @@ LBB24_15:
 	param2
 	);
 	ld.param.f32 	%f27, [retval0+0];
-	} // callseq 27
+	} // callseq 22
 	mul.rn.f32 	%f29, %f17, %f27;
 	st.f32 	[%SP+332], %f29;
 	ld.f32 	%f30, [%SP+332];
 	add.u64 	%rd53, %SP, 440;
-	{ // callseq 28, 0
+	{ // callseq 23, 0
 	.reg .b32 temp_param_reg;
 	.param .b64 param0;
 	st.param.b64 	[param0+0], %rd53;
@@ -1669,7 +1514,7 @@ LBB24_15:
 	param1, 
 	param2
 	);
-	} // callseq 28
+	} // callseq 23
 	or.b64  	%rd54, %rd53, 4;
 	ld.f32 	%f31, [%rd54];
 	ld.f32 	%f32, [%SP+452];
@@ -1677,7 +1522,7 @@ LBB24_15:
 	ld.f32 	%f34, [%SP+440];
 	add.u64 	%rd55, %SP, 424;
 	add.u64 	%rd56, %SP, 336;
-	{ // callseq 29, 0
+	{ // callseq 24, 0
 	.reg .b32 temp_param_reg;
 	.param .b64 param0;
 	st.param.b64 	[param0+0], %rd55;
@@ -1695,7 +1540,7 @@ LBB24_15:
 	param1, 
 	param2
 	);
-	} // callseq 29
+	} // callseq 24
 	ld.u64 	%rd57, [%SP+432];
 	st.u64 	[%SP+344], %rd57;
 	ld.u64 	%rd58, [%SP+424];
@@ -1704,20 +1549,20 @@ LBB24_15:
 	ld.f32 	%f36, [%SP+328];
 	add.rn.f32 	%f37, %f36, %f35;
 	st.f32 	[%SP+328], %f37;
-	bra.uni 	LBB24_16;
-LBB24_16:
+	bra.uni 	LBB22_16;
+LBB22_16:
 	ld.u32 	%r34, [%SP+388];
 	add.s32 	%r35, %r34, 1;
 	st.u32 	[%SP+388], %r35;
-	bra.uni 	LBB24_14;
-LBB24_17:
-	bra.uni 	LBB24_18;
-LBB24_18:
+	bra.uni 	LBB22_14;
+LBB22_17:
+	bra.uni 	LBB22_18;
+LBB22_18:
 	ld.u32 	%r21, [%SP+384];
 	add.s32 	%r22, %r21, 1;
 	st.u32 	[%SP+384], %r22;
-	bra.uni 	LBB24_12;
-LBB24_19:
+	bra.uni 	LBB22_12;
+LBB22_19:
 	ld.s32 	%rd25, [%SP+44];
 	ld.u64 	%rd26, [%SP+16];
 	mul.lo.s64 	%rd27, %rd25, %rd26;
@@ -1729,7 +1574,7 @@ LBB24_19:
 	ld.f32 	%f6, [%SP+328];
 	add.u64 	%rd33, %SP, 456;
 	add.u64 	%rd34, %SP, 336;
-	{ // callseq 25, 0
+	{ // callseq 20, 0
 	.reg .b32 temp_param_reg;
 	.param .b64 param0;
 	st.param.b64 	[param0+0], %rd33;
@@ -1744,13 +1589,13 @@ LBB24_19:
 	param1, 
 	param2
 	);
-	} // callseq 25
+	} // callseq 20
 	or.b64  	%rd35, %rd33, 4;
 	ld.f32 	%f7, [%rd35];
 	ld.f32 	%f8, [%SP+468];
 	ld.f32 	%f9, [%SP+464];
 	ld.f32 	%f10, [%SP+456];
-	{ // callseq 26, 0
+	{ // callseq 21, 0
 	.reg .b32 temp_param_reg;
 	.param .align 4 .b8 param0[16];
 	st.param.f32 	[param0+0], %f10;
@@ -1764,7 +1609,7 @@ LBB24_19:
 	param0
 	);
 	ld.param.b32 	%r15, [retval0+0];
-	} // callseq 26
+	} // callseq 21
 	st.global.u32 	[%rd32], %r15;
 	ret;
 
@@ -1776,13 +1621,13 @@ LBB24_19:
 	.param .align 4 .b8 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2[16]
 )
 {
-	.local .align 8 .b8 	__local_depot25[16];
+	.local .align 8 .b8 	__local_depot23[16];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .f32 	%f<17>;
 	.reg .b64 	%rd<5>;
 
-	mov.u64 	%SPL, __local_depot25;
+	mov.u64 	%SPL, __local_depot23;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f4, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2+12];
 	ld.param.f32 	%f3, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2+8];
@@ -1822,13 +1667,13 @@ LBB24_19:
 	.param .b32 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_2
 )
 {
-	.local .align 4 .b8 	__local_depot26[4];
+	.local .align 4 .b8 	__local_depot24[4];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .f32 	%f<14>;
 	.reg .b64 	%rd<3>;
 
-	mov.u64 	%SPL, __local_depot26;
+	mov.u64 	%SPL, __local_depot24;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f1, [_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_2];
 	ld.param.u64 	%rd2, [_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_1];
@@ -1860,13 +1705,13 @@ LBB24_19:
 	.param .b32 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_2
 )
 {
-	.local .align 4 .b8 	__local_depot27[4];
+	.local .align 4 .b8 	__local_depot25[4];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .f32 	%f<14>;
 	.reg .b64 	%rd<3>;
 
-	mov.u64 	%SPL, __local_depot27;
+	mov.u64 	%SPL, __local_depot25;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f1, [_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_2];
 	ld.param.u64 	%rd2, [_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_1];
