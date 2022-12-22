@@ -68,10 +68,32 @@ void main()
     imres[] *= 20;
     imshow(imres, "imres");
 
+    // initialize ptx var gauss0 here: .visible .const .align 4 .b8 gauss0[256];
     import bilateral;
+    import core.stdc.math : exp2f;
+    
     enum radius = 3;
     enum delta = 4.0f;
-    
+
+    auto static calculateGauss() {
+        float[64] Gaussian;
+
+        for (int i = 0; i < 2*radius + 1; ++i)
+        {
+            float _x = i-radius;
+            Gaussian[i] = exp2f(-(_x*_x) / (2*delta*delta));
+        }
+
+        return cast(immutable)Gaussian;
+    }
+
+    immutable float[64] Gaussian = calculateGauss();
+
+    size_t nbytes;
+    size_t _gaussConstAddr = Program.getGlobal(nbytes, "gauss0");
+    cuMemcpyHtoD(_gaussConstAddr, Gaussian.ptr, nbytes);
+    // Gaussian const initialization ends here
+
     TexHandle dismap_tex = cudaAllocAndGetTextureObjectFloat4(cast(void*)imres.ptr, width, height); 
     ulong rgbaTex = dismap_tex.texid;
     scope(exit) cudaFree(dismap_tex.devmemptr);

@@ -14,5 +14,6 @@
 	"description": "stereoDisparity - Stereo Disparity Computation with dlang, dcompute (CUDA backend)",
 	"license": "BSL-1.0",
 	"name": "stereo",
-    "comment-dflags": ["-output-ll"]
+    "comment-dflags": ["-output-ll"],
+    "commdflags": ["-vv"]
 }

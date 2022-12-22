@@ -116,13 +116,8 @@ uint[3] blockSize = [16, 16, 1];
         return;
     }
 
-    float[64] __cGaussian; // TODO: how to allocate ConstantPointer!float
-    float* cGaussian = __cGaussian.ptr;
-    for (int i = 0; i < 2*radius + 1; ++i)
-    {
-        float _x = i-radius;
-        cGaussian[i] = ex2_approx_f(-(_x*_x) / (2*delta*delta));
-    }
+    // host code initialize this __constant__ array
+    immutable(float)* cGaussian = constStaticReserve!(float[64], "gauss0");
 
     float sum = 0.0f;
     float factor;
