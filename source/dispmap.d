@@ -7,6 +7,7 @@ import dcompute.std.index;
 import dcompute.std.cuda.sync;
 
 import dcompute.std.memory;
+import dcompute.std.cuda.texture : int4, tex_unified_2d_v4u32_s32;
 // https://github.com/NVIDIA/cuda-samples/blob/2e41896e1b2c7e2699b7b7f6689c107900c233bb/Samples/5_Domain_Specific/stereoDisparity/stereoDisparity.cu
 
 // to debug or validate ptx
@@ -23,17 +24,8 @@ uint __usad4(uint A, uint B, uint C = 0) {
   return result;
 }
 
-// CUDA tex2D return type
-struct int4
-{
-    uint x, y, z, w;
-}
-
-pragma(LDC_intrinsic, "llvm.nvvm.tex.unified.2d.v4u32.s32") //uint
-int4 _tex2D(ulong, int /*x*/, int /*y*/) @trusted nothrow @nogc;
-
 uint tex2D(ulong tex, int x, int y){
-    return _tex2D(tex, x, y).x;
+    return tex_unified_2d_v4u32_s32(tex, x, y).x;
 }
 
 T abs(T)(T val) @trusted nothrow @nogc {

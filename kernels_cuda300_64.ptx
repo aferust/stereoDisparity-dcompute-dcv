@@ -35,27 +35,6 @@
 	.param .b32 _D9bilateral__T3absTfZQhFNaNbNiNefZf_param_0
 )
 ;
-.weak .func _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi
-(
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_0,
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_1,
-	.param .align 4 .b8 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2[16]
-)
-;
-.weak .func _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv
-(
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_0,
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_1,
-	.param .b32 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_2
-)
-;
-.weak .func _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv
-(
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_0,
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_1,
-	.param .b32 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_2
-)
-;
 .const .align 1 .b8 str[4] = {37, 100, 10, 0};
 .visible .const .align 4 .b8 gauss0[256];
 .global .align 1 .b8 _$_str[3] = {54, 52, 0};
@@ -70,7 +49,7 @@
 .global .align 1 .b8 _$_str8[2] = {53, 0};
 .global .align 1 .b8 _$_str9[2] = {50, 0};
 .global .align 1 .b8 _$_str10[4] = {105, 51, 50, 0};
-.extern .global .align 4 .b8 _D9bilateral6float46__initZ[16];
+.extern .global .align 4 .b8 _D8dcompute3std4cuda7texture6float46__initZ[16];
 
 .visible .func  (.param .b32 func_retval0) _D7dispmap7__usad4FkkkZk(
 	.param .b32 _D7dispmap7__usad4FkkkZk_param_0,
@@ -903,6 +882,128 @@ LBB2_36:
 	ret;
 
 }
+	// .weak	_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe
+.weak .func _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe(
+	.param .b64 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_0,
+	.param .b64 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_1,
+	.param .b32 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_2
+)
+{
+	.local .align 4 .b8 	__local_depot15[4];
+	.reg .b64 	%SP;
+	.reg .b64 	%SPL;
+	.reg .f32 	%f<14>;
+	.reg .b64 	%rd<3>;
+
+	mov.u64 	%SPL, __local_depot15;
+	cvta.local.u64 	%SP, %SPL;
+	ld.param.f32 	%f1, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_2];
+	ld.param.u64 	%rd2, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_1];
+	ld.param.u64 	%rd1, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_0];
+	st.f32 	[%SP+0], %f1;
+	ld.f32 	%f2, [%rd2];
+	ld.f32 	%f3, [%SP+0];
+	mul.rn.f32 	%f4, %f2, %f3;
+	st.f32 	[%rd1], %f4;
+	ld.f32 	%f5, [%rd2+4];
+	ld.f32 	%f6, [%SP+0];
+	mul.rn.f32 	%f7, %f5, %f6;
+	st.f32 	[%rd1+4], %f7;
+	ld.f32 	%f8, [%rd2+8];
+	ld.f32 	%f9, [%SP+0];
+	mul.rn.f32 	%f10, %f8, %f9;
+	st.f32 	[%rd1+8], %f10;
+	ld.f32 	%f11, [%rd2+12];
+	ld.f32 	%f12, [%SP+0];
+	mul.rn.f32 	%f13, %f11, %f12;
+	st.f32 	[%rd1+12], %f13;
+	ret;
+
+}
+	// .weak	_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr
+.weak .func _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr(
+	.param .b64 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_0,
+	.param .b64 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_1,
+	.param .align 4 .b8 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_2[16]
+)
+{
+	.local .align 8 .b8 	__local_depot16[16];
+	.reg .b64 	%SP;
+	.reg .b64 	%SPL;
+	.reg .f32 	%f<17>;
+	.reg .b64 	%rd<5>;
+
+	mov.u64 	%SPL, __local_depot16;
+	cvta.local.u64 	%SP, %SPL;
+	ld.param.f32 	%f4, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_2+12];
+	ld.param.f32 	%f3, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_2+8];
+	ld.param.f32 	%f2, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_2+4];
+	ld.param.f32 	%f1, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_2];
+	ld.param.u64 	%rd2, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_1];
+	ld.param.u64 	%rd1, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr_param_0];
+	add.u64 	%rd3, %SP, 0;
+	or.b64  	%rd4, %rd3, 4;
+	st.f32 	[%rd4], %f2;
+	st.f32 	[%SP+12], %f4;
+	st.f32 	[%SP+8], %f3;
+	st.f32 	[%SP+0], %f1;
+	ld.f32 	%f5, [%rd2];
+	ld.f32 	%f6, [%SP+0];
+	add.rn.f32 	%f7, %f5, %f6;
+	st.f32 	[%rd1], %f7;
+	ld.f32 	%f8, [%rd2+4];
+	ld.f32 	%f9, [%rd4];
+	add.rn.f32 	%f10, %f8, %f9;
+	st.f32 	[%rd1+4], %f10;
+	ld.f32 	%f11, [%rd2+8];
+	ld.f32 	%f12, [%SP+8];
+	add.rn.f32 	%f13, %f11, %f12;
+	st.f32 	[%rd1+8], %f13;
+	ld.f32 	%f14, [%rd2+12];
+	ld.f32 	%f15, [%SP+12];
+	add.rn.f32 	%f16, %f14, %f15;
+	st.f32 	[%rd1+12], %f16;
+	ret;
+
+}
+	// .weak	_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe
+.weak .func _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe(
+	.param .b64 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_0,
+	.param .b64 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_1,
+	.param .b32 _D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_2
+)
+{
+	.local .align 4 .b8 	__local_depot17[4];
+	.reg .b64 	%SP;
+	.reg .b64 	%SPL;
+	.reg .f32 	%f<14>;
+	.reg .b64 	%rd<3>;
+
+	mov.u64 	%SPL, __local_depot17;
+	cvta.local.u64 	%SP, %SPL;
+	ld.param.f32 	%f1, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_2];
+	ld.param.u64 	%rd2, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_1];
+	ld.param.u64 	%rd1, [_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe_param_0];
+	st.f32 	[%SP+0], %f1;
+	ld.f32 	%f2, [%rd2];
+	ld.f32 	%f3, [%SP+0];
+	div.rn.f32 	%f4, %f2, %f3;
+	st.f32 	[%rd1], %f4;
+	ld.f32 	%f5, [%rd2+4];
+	ld.f32 	%f6, [%SP+0];
+	div.rn.f32 	%f7, %f5, %f6;
+	st.f32 	[%rd1+4], %f7;
+	ld.f32 	%f8, [%rd2+8];
+	ld.f32 	%f9, [%SP+0];
+	div.rn.f32 	%f10, %f8, %f9;
+	st.f32 	[%rd1+8], %f10;
+	ld.f32 	%f11, [%rd2+12];
+	ld.f32 	%f12, [%SP+0];
+	div.rn.f32 	%f13, %f11, %f12;
+	st.f32 	[%rd1+12], %f13;
+	ret;
+
+}
 	// .weak	_D8dcompute3std6memory__T4ItoaVki1152ZQnFNaNbNiNfZyAa
 .weak .func  (.param .align 8 .b8 func_retval0[16]) _D8dcompute3std6memory__T4ItoaVki1152ZQnFNaNbNiNfZyAa()
 {
@@ -1007,30 +1108,30 @@ LBB2_36:
 	ret;
 
 }
-	// .globl	_D9bilateral12euclideanLenFSQBa6float4QlfZf
-.visible .func  (.param .b32 func_retval0) _D9bilateral12euclideanLenFSQBa6float4QlfZf(
-	.param .align 4 .b8 _D9bilateral12euclideanLenFSQBa6float4QlfZf_param_0[16],
-	.param .align 4 .b8 _D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1[16],
-	.param .b32 _D9bilateral12euclideanLenFSQBa6float4QlfZf_param_2
+	// .globl	_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf
+.visible .func  (.param .b32 func_retval0) _D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf(
+	.param .align 4 .b8 _D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_0[16],
+	.param .align 4 .b8 _D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_1[16],
+	.param .b32 _D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_2
 )
 {
-	.local .align 8 .b8 	__local_depot23[40];
+	.local .align 8 .b8 	__local_depot26[40];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .f32 	%f<31>;
 	.reg .b64 	%rd<5>;
 
-	mov.u64 	%SPL, __local_depot23;
+	mov.u64 	%SPL, __local_depot26;
 	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f8, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1+12];
-	ld.param.f32 	%f7, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1+8];
-	ld.param.f32 	%f6, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1+4];
-	ld.param.f32 	%f5, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_1];
-	ld.param.f32 	%f4, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_0+12];
-	ld.param.f32 	%f3, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_0+8];
-	ld.param.f32 	%f2, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_0+4];
-	ld.param.f32 	%f1, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_0];
-	ld.param.f32 	%f9, [_D9bilateral12euclideanLenFSQBa6float4QlfZf_param_2];
+	ld.param.f32 	%f8, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_1+12];
+	ld.param.f32 	%f7, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_1+8];
+	ld.param.f32 	%f6, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_1+4];
+	ld.param.f32 	%f5, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_1];
+	ld.param.f32 	%f4, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_0+12];
+	ld.param.f32 	%f3, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_0+8];
+	ld.param.f32 	%f2, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_0+4];
+	ld.param.f32 	%f1, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_0];
+	ld.param.f32 	%f9, [_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf_param_2];
 	add.u64 	%rd1, %SP, 0;
 	or.b64  	%rd2, %rd1, 4;
 	st.f32 	[%rd2], %f2;
@@ -1070,24 +1171,24 @@ LBB2_36:
 	ret;
 
 }
-	// .globl	_D9bilateral14rgbaFloatToIntFSQBc6float4Zk
-.visible .func  (.param .b32 func_retval0) _D9bilateral14rgbaFloatToIntFSQBc6float4Zk(
-	.param .align 4 .b8 _D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0[16]
+	// .globl	_D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk
+.visible .func  (.param .b32 func_retval0) _D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk(
+	.param .align 4 .b8 _D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk_param_0[16]
 )
 {
-	.local .align 8 .b8 	__local_depot24[16];
+	.local .align 8 .b8 	__local_depot27[16];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .b32 	%r<11>;
 	.reg .f32 	%f<29>;
 	.reg .b64 	%rd<3>;
 
-	mov.u64 	%SPL, __local_depot24;
+	mov.u64 	%SPL, __local_depot27;
 	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f4, [_D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0+12];
-	ld.param.f32 	%f3, [_D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0+8];
-	ld.param.f32 	%f2, [_D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0+4];
-	ld.param.f32 	%f1, [_D9bilateral14rgbaFloatToIntFSQBc6float4Zk_param_0];
+	ld.param.f32 	%f4, [_D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk_param_0+12];
+	ld.param.f32 	%f3, [_D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk_param_0+8];
+	ld.param.f32 	%f2, [_D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk_param_0+4];
+	ld.param.f32 	%f1, [_D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk_param_0];
 	add.u64 	%rd1, %SP, 0;
 	or.b64  	%rd2, %rd1, 4;
 	st.f32 	[%rd2], %f2;
@@ -1181,46 +1282,46 @@ LBB2_36:
 	.param .b32 _D9bilateral__T3absTfZQhFNaNbNiNefZf_param_0
 )
 {
-	.local .align 8 .b8 	__local_depot25[24];
+	.local .align 8 .b8 	__local_depot28[24];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .pred 	%p<2>;
 	.reg .f32 	%f<6>;
 	.reg .b64 	%rd<4>;
 
-	mov.u64 	%SPL, __local_depot25;
+	mov.u64 	%SPL, __local_depot28;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.f32 	%f1, [_D9bilateral__T3absTfZQhFNaNbNiNefZf_param_0];
 	st.f32 	[%SP+0], %f1;
 	ld.f32 	%f2, [%SP+0];
 	setp.ltu.f32 	%p1, %f2, 0f00000000;
-	@%p1 bra 	LBB25_2;
-	bra.uni 	LBB25_1;
-LBB25_1:
+	@%p1 bra 	LBB28_2;
+	bra.uni 	LBB28_1;
+LBB28_1:
 	add.u64 	%rd2, %SP, 0;
 	st.u64 	[%SP+8], %rd2;
-	bra.uni 	LBB25_3;
-LBB25_2:
+	bra.uni 	LBB28_3;
+LBB28_2:
 	ld.f32 	%f3, [%SP+0];
 	neg.f32 	%f4, %f3;
 	st.f32 	[%SP+16], %f4;
 	add.u64 	%rd1, %SP, 16;
 	st.u64 	[%SP+8], %rd1;
-	bra.uni 	LBB25_3;
-LBB25_3:
+	bra.uni 	LBB28_3;
+LBB28_3:
 	ld.u64 	%rd3, [%SP+8];
 	ld.f32 	%f5, [%rd3];
 	st.param.f32 	[func_retval0+0], %f5;
 	ret;
 
 }
-	// .globl	_D9bilateral14rgbaIntToFloatFkZSQBe6float4
-.visible .func _D9bilateral14rgbaIntToFloatFkZSQBe6float4(
-	.param .b64 _D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_0,
-	.param .b32 _D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_1
+	// .globl	_D9bilateral14rgbaIntToFloatFkZS8dcompute3std4cuda7texture6float4
+.visible .func _D9bilateral14rgbaIntToFloatFkZS8dcompute3std4cuda7texture6float4(
+	.param .b64 _D9bilateral14rgbaIntToFloatFkZS8dcompute3std4cuda7texture6float4_param_0,
+	.param .b32 _D9bilateral14rgbaIntToFloatFkZS8dcompute3std4cuda7texture6float4_param_1
 )
 {
-	.local .align 4 .b8 	__local_depot26[4];
+	.local .align 4 .b8 	__local_depot29[4];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .b16 	%rs<17>;
@@ -1228,12 +1329,12 @@ LBB25_3:
 	.reg .f32 	%f<9>;
 	.reg .b64 	%rd<8>;
 
-	mov.u64 	%SPL, __local_depot26;
+	mov.u64 	%SPL, __local_depot29;
 	cvta.local.u64 	%SP, %SPL;
-	ld.param.u32 	%r1, [_D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_1];
-	ld.param.u64 	%rd1, [_D9bilateral14rgbaIntToFloatFkZSQBe6float4_param_0];
+	ld.param.u32 	%r1, [_D9bilateral14rgbaIntToFloatFkZS8dcompute3std4cuda7texture6float4_param_1];
+	ld.param.u64 	%rd1, [_D9bilateral14rgbaIntToFloatFkZS8dcompute3std4cuda7texture6float4_param_0];
 	st.u32 	[%SP+0], %r1;
-	mov.u64 	%rd2, _D9bilateral6float46__initZ;
+	mov.u64 	%rd2, _D8dcompute3std4cuda7texture6float46__initZ;
 	cvta.global.u64 	%rd3, %rd2;
 	ld.u8 	%rs1, [%rd3+15];
 	st.u8 	[%rd1+15], %rs1;
@@ -1300,7 +1401,7 @@ LBB25_3:
 	.param .u32 _D9bilateral16bilateral_filterFmS3ldc8dcompute__T7PointerVEQBaQz9AddrSpacei1TiZQBemmfiZv_param_5
 )
 {
-	.local .align 8 .b8 	__local_depot27[200];
+	.local .align 8 .b8 	__local_depot30[200];
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .pred 	%p<8>;
@@ -1308,7 +1409,7 @@ LBB25_3:
 	.reg .f32 	%f<38>;
 	.reg .b64 	%rd<57>;
 
-	mov.u64 	%SPL, __local_depot27;
+	mov.u64 	%SPL, __local_depot30;
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.u32 	%r1, [_D9bilateral16bilateral_filterFmS3ldc8dcompute__T7PointerVEQBaQz9AddrSpacei1TiZQBemmfiZv_param_5];
 	ld.param.f32 	%f1, [_D9bilateral16bilateral_filterFmS3ldc8dcompute__T7PointerVEQBaQz9AddrSpacei1TiZQBemmfiZv_param_4];
@@ -1347,21 +1448,21 @@ LBB25_3:
 	setp.ge.u64 	%p4, %rd9, %rd10;
 	mov.pred 	%p3, -1;
 	mov.pred 	%p7, %p3;
-	@%p4 bra 	LBB27_2;
-	bra.uni 	LBB27_1;
-LBB27_1:
+	@%p4 bra 	LBB30_2;
+	bra.uni 	LBB30_1;
+LBB30_1:
 	ld.s32 	%rd11, [%SP+44];
 	ld.u64 	%rd12, [%SP+24];
 	setp.ge.u64 	%p1, %rd11, %rd12;
 	mov.pred 	%p7, %p1;
-	bra.uni 	LBB27_2;
-LBB27_2:
+	bra.uni 	LBB30_2;
+LBB30_2:
 	mov.pred 	%p2, %p7;
-	@!%p2 bra 	LBB27_4;
-	bra.uni 	LBB27_3;
-LBB27_3:
+	@!%p2 bra 	LBB30_4;
+	bra.uni 	LBB30_3;
+LBB30_3:
 	ret;
-LBB27_4:
+LBB30_4:
 	{ // callseq 19, 0
 	.reg .b32 temp_param_reg;
 	.param .b64 retval0;
@@ -1402,25 +1503,25 @@ LBB27_4:
 	ld.u32 	%r6, [%SP+36];
 	neg.s32 	%r7, %r6;
 	st.u32 	[%SP+112], %r7;
-	bra.uni 	LBB27_5;
-LBB27_5:
+	bra.uni 	LBB30_5;
+LBB30_5:
 	ld.u32 	%r8, [%SP+112];
 	ld.u32 	%r9, [%SP+36];
 	setp.gt.s32 	%p5, %r8, %r9;
-	@%p5 bra 	LBB27_12;
-	bra.uni 	LBB27_6;
-LBB27_6:
+	@%p5 bra 	LBB30_12;
+	bra.uni 	LBB30_6;
+LBB30_6:
 	ld.u32 	%r12, [%SP+36];
 	neg.s32 	%r13, %r12;
 	st.u32 	[%SP+116], %r13;
-	bra.uni 	LBB27_7;
-LBB27_7:
+	bra.uni 	LBB30_7;
+LBB30_7:
 	ld.u32 	%r14, [%SP+116];
 	ld.u32 	%r15, [%SP+36];
 	setp.gt.s32 	%p6, %r14, %r15;
-	@%p6 bra 	LBB27_10;
-	bra.uni 	LBB27_8;
-LBB27_8:
+	@%p6 bra 	LBB30_10;
+	bra.uni 	LBB30_8;
+LBB30_8:
 	ld.u64 	%rd34, [%SP+0];
 	ld.u32 	%r18, [%SP+40];
 	ld.u32 	%r19, [%SP+116];
@@ -1486,7 +1587,7 @@ LBB27_8:
 	st.param.f32 	[param2+0], %f26;
 	.param .b32 retval0;
 	call.uni (retval0), 
-	_D9bilateral12euclideanLenFSQBa6float4QlfZf, 
+	_D9bilateral12euclideanLenFS8dcompute3std4cuda7texture6float4QBifZf, 
 	(
 	param0, 
 	param1, 
@@ -1507,7 +1608,7 @@ LBB27_8:
 	.param .b32 param2;
 	st.param.f32 	[param2+0], %f30;
 	call.uni 
-	_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv, 
+	_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCsQCmQClQCjQCe, 
 	(
 	param0, 
 	param1, 
@@ -1533,7 +1634,7 @@ LBB27_8:
 	st.param.f32 	[param2+8], %f33;
 	st.param.f32 	[param2+12], %f32;
 	call.uni 
-	_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi, 
+	_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCqQCkQCjQChQCcZQr, 
 	(
 	param0, 
 	param1, 
@@ -1548,20 +1649,20 @@ LBB27_8:
 	ld.f32 	%f36, [%SP+56];
 	add.rn.f32 	%f37, %f36, %f35;
 	st.f32 	[%SP+56], %f37;
-	bra.uni 	LBB27_9;
-LBB27_9:
+	bra.uni 	LBB30_9;
+LBB30_9:
 	ld.u32 	%r29, [%SP+116];
 	add.s32 	%r30, %r29, 1;
 	st.u32 	[%SP+116], %r30;
-	bra.uni 	LBB27_7;
-LBB27_10:
-	bra.uni 	LBB27_11;
-LBB27_11:
+	bra.uni 	LBB30_7;
+LBB30_10:
+	bra.uni 	LBB30_11;
+LBB30_11:
 	ld.u32 	%r16, [%SP+112];
 	add.s32 	%r17, %r16, 1;
 	st.u32 	[%SP+112], %r17;
-	bra.uni 	LBB27_5;
-LBB27_12:
+	bra.uni 	LBB30_5;
+LBB30_12:
 	ld.s32 	%rd23, [%SP+44];
 	ld.u64 	%rd24, [%SP+16];
 	mul.lo.s64 	%rd25, %rd23, %rd24;
@@ -1582,7 +1683,7 @@ LBB27_12:
 	.param .b32 param2;
 	st.param.f32 	[param2+0], %f6;
 	call.uni 
-	_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv, 
+	_D8dcompute3std4cuda7texture6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCsQCmQClQCjQCe, 
 	(
 	param0, 
 	param1, 
@@ -1603,135 +1704,13 @@ LBB27_12:
 	st.param.f32 	[param0+12], %f8;
 	.param .b32 retval0;
 	call.uni (retval0), 
-	_D9bilateral14rgbaFloatToIntFSQBc6float4Zk, 
+	_D9bilateral14rgbaFloatToIntFS8dcompute3std4cuda7texture6float4Zk, 
 	(
 	param0
 	);
 	ld.param.b32 	%r10, [retval0+0];
 	} // callseq 21
 	st.global.u32 	[%rd30], %r10;
-	ret;
-
-}
-	// .weak	_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi
-.weak .func _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi(
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_0,
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_1,
-	.param .align 4 .b8 _D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2[16]
-)
-{
-	.local .align 8 .b8 	__local_depot28[16];
-	.reg .b64 	%SP;
-	.reg .b64 	%SPL;
-	.reg .f32 	%f<17>;
-	.reg .b64 	%rd<5>;
-
-	mov.u64 	%SPL, __local_depot28;
-	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f4, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2+12];
-	ld.param.f32 	%f3, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2+8];
-	ld.param.f32 	%f2, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2+4];
-	ld.param.f32 	%f1, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_2];
-	ld.param.u64 	%rd2, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_1];
-	ld.param.u64 	%rd1, [_D9bilateral6float4__T8opBinaryVAyaa1_2bZQtMFNaNbNiNfSQCaQBtZQi_param_0];
-	add.u64 	%rd3, %SP, 0;
-	or.b64  	%rd4, %rd3, 4;
-	st.f32 	[%rd4], %f2;
-	st.f32 	[%SP+12], %f4;
-	st.f32 	[%SP+8], %f3;
-	st.f32 	[%SP+0], %f1;
-	ld.f32 	%f5, [%rd2];
-	ld.f32 	%f6, [%SP+0];
-	add.rn.f32 	%f7, %f5, %f6;
-	st.f32 	[%rd1], %f7;
-	ld.f32 	%f8, [%rd2+4];
-	ld.f32 	%f9, [%rd4];
-	add.rn.f32 	%f10, %f8, %f9;
-	st.f32 	[%rd1+4], %f10;
-	ld.f32 	%f11, [%rd2+8];
-	ld.f32 	%f12, [%SP+8];
-	add.rn.f32 	%f13, %f11, %f12;
-	st.f32 	[%rd1+8], %f13;
-	ld.f32 	%f14, [%rd2+12];
-	ld.f32 	%f15, [%SP+12];
-	add.rn.f32 	%f16, %f14, %f15;
-	st.f32 	[%rd1+12], %f16;
-	ret;
-
-}
-	// .weak	_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv
-.weak .func _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv(
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_0,
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_1,
-	.param .b32 _D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_2
-)
-{
-	.local .align 4 .b8 	__local_depot29[4];
-	.reg .b64 	%SP;
-	.reg .b64 	%SPL;
-	.reg .f32 	%f<14>;
-	.reg .b64 	%rd<3>;
-
-	mov.u64 	%SPL, __local_depot29;
-	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f1, [_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_2];
-	ld.param.u64 	%rd2, [_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_1];
-	ld.param.u64 	%rd1, [_D9bilateral6float4__T8opBinaryVAyaa1_2aZQtMFNaNbNiNffZSQCcQBv_param_0];
-	st.f32 	[%SP+0], %f1;
-	ld.f32 	%f2, [%rd2];
-	ld.f32 	%f3, [%SP+0];
-	mul.rn.f32 	%f4, %f2, %f3;
-	st.f32 	[%rd1], %f4;
-	ld.f32 	%f5, [%rd2+4];
-	ld.f32 	%f6, [%SP+0];
-	mul.rn.f32 	%f7, %f5, %f6;
-	st.f32 	[%rd1+4], %f7;
-	ld.f32 	%f8, [%rd2+8];
-	ld.f32 	%f9, [%SP+0];
-	mul.rn.f32 	%f10, %f8, %f9;
-	st.f32 	[%rd1+8], %f10;
-	ld.f32 	%f11, [%rd2+12];
-	ld.f32 	%f12, [%SP+0];
-	mul.rn.f32 	%f13, %f11, %f12;
-	st.f32 	[%rd1+12], %f13;
-	ret;
-
-}
-	// .weak	_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv
-.weak .func _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv(
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_0,
-	.param .b64 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_1,
-	.param .b32 _D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_2
-)
-{
-	.local .align 4 .b8 	__local_depot30[4];
-	.reg .b64 	%SP;
-	.reg .b64 	%SPL;
-	.reg .f32 	%f<14>;
-	.reg .b64 	%rd<3>;
-
-	mov.u64 	%SPL, __local_depot30;
-	cvta.local.u64 	%SP, %SPL;
-	ld.param.f32 	%f1, [_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_2];
-	ld.param.u64 	%rd2, [_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_1];
-	ld.param.u64 	%rd1, [_D9bilateral6float4__T8opBinaryVAyaa1_2fZQtMFNaNbNiNffZSQCcQBv_param_0];
-	st.f32 	[%SP+0], %f1;
-	ld.f32 	%f2, [%rd2];
-	ld.f32 	%f3, [%SP+0];
-	div.rn.f32 	%f4, %f2, %f3;
-	st.f32 	[%rd1], %f4;
-	ld.f32 	%f5, [%rd2+4];
-	ld.f32 	%f6, [%SP+0];
-	div.rn.f32 	%f7, %f5, %f6;
-	st.f32 	[%rd1+4], %f7;
-	ld.f32 	%f8, [%rd2+8];
-	ld.f32 	%f9, [%SP+0];
-	div.rn.f32 	%f10, %f8, %f9;
-	st.f32 	[%rd1+8], %f10;
-	ld.f32 	%f11, [%rd2+12];
-	ld.f32 	%f12, [%SP+0];
-	div.rn.f32 	%f13, %f11, %f12;
-	st.f32 	[%rd1+12], %f13;
 	ret;
 
 }

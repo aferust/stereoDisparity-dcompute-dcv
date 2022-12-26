@@ -8,61 +8,13 @@ import dcompute.std.cuda.sync;
 
 import dcompute.std.memory;
 import dcompute.std.cuda.math : ex2_approx_f, saturate_f;
+import dcompute.std.cuda.texture : float4, tex2D = tex_unified_2d_v4f32_s32;
 
 // https://github.com/NVIDIA/cuda-samples/blob/master/Samples/5_Domain_Specific/bilateralFilter/bilateral_kernel.cu
-
-// CUDA tex2D return type
-struct float4
-{
-    float x, y, z, w;
-
-    float4 opBinary(string op)(float s) if (op == "+"){
-        return float4(x+s, y+s, z+s, w+s);
-    }
-    float4 opBinary(string op)(float s) if (op == "*") {
-        return float4(x*s, y*s, z*s, w*s);
-    }
-    float4 opBinary(string op)(float s) if (op == "/") {
-        return float4(x/s, y/s, z/s, w/s);
-    }
-
-    float4 opBinary(string op)(float4 other){
-        static if (op == "+"){
-            return float4(x+other.x, y+other.y, z+other.z, w+other.w);
-        } else
-            static assert(0, "op is not implemented");
-    }
-}
-
-pragma(LDC_intrinsic, "llvm.nvvm.tex.unified.2d.v4f32.s32") //float4
-float4 tex2D(ulong, int, int) @trusted nothrow @nogc;
-
 
 T abs(T)(T val) @trusted nothrow @nogc {
     return (val >= 0) ? val : -val;
 }
-
-/*
-float __expf(float x){ // intrinsic?
-    float x1;
-    enum precision = 0.01f;
-    float sum = 0.0f;
-    int n = 0;
-    x1 = 1;
-    do {
-        sum += x1;
-        x1  *= (x / ++n);
-    } while (x1 > precision);
-
-    return sum;
-}
-
-float saturatef(float val){ // intrinsic?
-    if(val <= 0) return 0;
-    if(val >= 1) return 1;
-    return val;
-}
-*/
 
 float euclideanLen(float4 a, float4 b, float d)
 {
